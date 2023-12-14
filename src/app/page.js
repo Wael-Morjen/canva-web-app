@@ -16,6 +16,11 @@ export default function Home() {
     setCurrentTool('eraser');
   };
 
+  // Function to set the current tool to a selected color when a color button is clicked
+  const selectColor = (color) => {
+    setCurrentTool(color);
+  };  
+
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
