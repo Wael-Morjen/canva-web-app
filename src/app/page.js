@@ -11,7 +11,12 @@ export default function Home() {
     setCurrentTool('pencil');
   };
 
-  
+  // Function to set the current tool to 'eraser' when the eraser button is clicked
+  const selectEraser = () => {
+    setCurrentTool('eraser');
+  };
+
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <Canvas />
