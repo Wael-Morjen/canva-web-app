@@ -20,6 +20,24 @@ const Tools = (selectPencil, selectEraser, selectColor, saveDrawing, addImage ) 
         inputRef.current.click();
     };
 
+    // Function to handle the upload of an image file
+    const handleImageUpload = (event) => {
+        // Retrieve the selected file from the input element
+        const file = event.target.files[0];
+
+        // If a file is selected, read it as a data URL and add the image to the canvas
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+            addImage(e.target.result);
+        };
+        reader.readAsDataURL(file);
+        }
+
+        // Close the camera
+        setIsCameraOpen(false);
+    };
+
     return ( 
         <div>
             Tools section
