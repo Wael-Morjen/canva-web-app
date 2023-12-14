@@ -65,7 +65,13 @@ export default function Home() {
       <Canvas 
         currentTool={currentTool} 
         addImage={addImage} />
-      <Tools />
+      <Tools
+        selectPencil={selectPencil}
+        selectEraser={selectEraser}
+        selectColor={selectColor}
+        saveDrawing={saveDrawing}
+        addImage={addImage}
+      />
     </div>
   )
 }
