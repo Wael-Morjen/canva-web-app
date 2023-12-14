@@ -24,18 +24,6 @@ const Canvas = ({ currentTool, addImage }) => {
       // Save the context reference for future use
       contextRef.current = context;
     }, []);
-
-
-    // Function to start the drawing
-    const startDrawing = ({ nativeEvent }) => {
-      const { offsetX, offsetY } = nativeEvent;
-
-      // Begin a new path and move to the starting point
-      contextRef.current.beginPath();
-      contextRef.current.moveTo(offsetX, offsetY);
-
-      isDrawing.current = true;
-    };
   
     return (
         <div>
