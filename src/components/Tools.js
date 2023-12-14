@@ -39,8 +39,38 @@ const Tools = (selectPencil, selectEraser, selectColor, saveDrawing, addImage ) 
     };
 
     return ( 
-        <div>
-            Tools section
+        <div className="fixed bottom-4 left-4 flex flex-col items-center">
+            <button onClick={selectPencil}>
+                <FaPencilAlt />
+            </button>
+            <button onClick={selectEraser}>
+                <FaEraser />
+            </button>
+            <div className="flex">
+            {/* Render color buttons based on the 'colors' array */}
+                {colors.map((color) => (
+                    <button
+                        key={color}
+                        onClick={() => selectColor(color)}
+                        style={{ backgroundColor: color }}
+                    />
+                ))}
+            </div>
+            <button onClick={saveDrawing}>
+                <FaSave />
+            </button>
+            <button onClick={openCamera}>
+                <FaCamera />
+            </button>
+            {/* Hidden file input for image upload */}
+            <input
+                ref={inputRef}
+                type="file"
+                accept="image/*"
+                capture="environment"
+                onChange={handleImageUpload}
+                className="hidden"
+            />
         </div>
      );
 }
