@@ -21,6 +21,21 @@ export default function Home() {
     setCurrentTool(color);
   };  
 
+  // Function to save the drawing on the canvas as a PNG image
+  const saveDrawing = () => {
+    // Retrieve the canvas element by its ID
+    const canvas = document.getElementById('drawing-canvas');
+
+    // Convert the content of the canvas to a data URL representing a PNG image
+    const dataUrl = canvas.toDataURL('image/png');
+
+    // Create a temporary link element and trigger a download of the image
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = 'drawing.png';
+    a.click();
+  };  
+
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
