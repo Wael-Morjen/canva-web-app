@@ -7,7 +7,7 @@ const Canvas = ({ currentTool, addImage }) => {
     const contextRef = useRef(null);
     const isDrawing = useRef(false);
     
-    // useEffect hook to set up the canvas and its context when the component mounts
+    // useEffect hook to set up the canvas and its context when the component mounts (full screen in our case)
     useEffect(() => {
         const canvas = canvasRef.current;
       
@@ -55,6 +55,16 @@ const Canvas = ({ currentTool, addImage }) => {
 
         contextRef.current.lineTo(offsetX, offsetY);
         contextRef.current.stroke();
+    };
+
+
+    // Function to handle the end of drawing
+    const endDrawing = () => {
+        // Close the current path
+        contextRef.current.closePath();
+
+        // Set isDrawing to false
+        isDrawing.current = false;
     };
   
     return (
