@@ -68,9 +68,14 @@ const Canvas = ({ currentTool, addImage }) => {
     };
   
     return (
-        <div>
-            this is canvas
-        </div>
+        <canvas
+        id="drawing-canvas"
+        ref={canvasRef}
+        onMouseDown={startDrawing}
+        onMouseMove={drawWithColor}
+        onMouseUp={endDrawing}
+        onMouseOut={endDrawing}
+      />
     );
 }
 
