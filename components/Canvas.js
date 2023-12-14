@@ -35,7 +35,27 @@ const Canvas = ({ currentTool, addImage }) => {
         contextRef.current.moveTo(offsetX, offsetY);
 
         isDrawing.current = true;
-    };    
+    }; 
+    
+    
+    // Function to handle drawing with the selected color or eraser
+    const drawWithColor = ({ nativeEvent }) => {
+        // If not currently drawing, exit the function
+        if (!isDrawing.current) return;
+
+        // Extract the X and Y coordinates of the current drawing point
+        const { offsetX, offsetY } = nativeEvent;
+
+        // Set the stroke style based on the current tool (color or eraser in our case)
+        if (currentTool === 'eraser') {
+          contextRef.current.strokeStyle = '#ffffff'; // White color for eraser
+        } else {
+          contextRef.current.strokeStyle = currentTool;
+        }
+
+        contextRef.current.lineTo(offsetX, offsetY);
+        contextRef.current.stroke();
+    };
   
     return (
         <div>
