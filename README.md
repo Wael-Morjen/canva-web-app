@@ -68,6 +68,10 @@ npm run dev
 
 Visit http://localhost:3000 in your browser.
 
+### Application already in production on Vercel
+
+Visit [canva web app](https://vercel.com/wael-morjen/canva-web-app)
+
 ## Acknowledgments
 
 - [React Icons](https://react-icons.github.io/react-icons/): Used for providing a variety of icons in the application.
@@ -77,6 +81,6 @@ Visit http://localhost:3000 in your browser.
 - [ESLint](https://eslint.org/): Used for linting the code and maintaining a consistent coding style.
 - [GitHub](https://github.com/): Hosts the project and provides version control.
 
-## Authors
+## Author
 
 - **Wael Morjen** - [Profile](https://github.com/Wael-Morjen)
