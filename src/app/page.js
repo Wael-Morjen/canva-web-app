@@ -28,7 +28,12 @@ const Home = () => {
   }, []);
 
   const toggleTools = () => {
-    setIsToolsOpen(!isToolsOpen);
+    // Close the tools only if it's open on mobile devices
+    if (isToolsOpen && isMobile) {
+      setIsToolsOpen(false);
+    } else {
+      setIsToolsOpen(!isToolsOpen);
+    }
   };
 
   const selectPencil = () => {
