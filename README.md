@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# canva web app
+
+## Overview
+
+Canva web app is a responsive drawing application built with Next.js, offering server-side rendering, automatic code splitting, and a powerful development environment. The application allows users to draw, select various tools, import images, and save their creations.
+
+### Key Features
+
+- **Responsive Drawing:** Enjoy a smooth drawing experience on various devices.
+- **Tool Selection:** Choose from a set of drawing tools, including pencil, eraser, and more.
+- **Image Import:** Easily import images from your device or take a snapshot using the camera.
+- **Save Your Artwork:** Save your creations and share them with others.
+
+## Development Choices
+
+### Framework: Next.js
+
+I chose Next.js for several reasons:
+
+- **Server-Side Rendering (SSR):** Next.js provides server-side rendering, improving performance and SEO.
+- **Automatic Code Splitting:** Next.js enables automatic code splitting, enhancing page load times.
+- **React Support:** Next.js seamlessly integrates with React, allowing us to leverage the power of React components.
+
+### Library: react-icons
+
+I opted for the `react-icons` library for the following reasons:
+
+- **Extensive Icon Set:** `react-icons` offers a comprehensive set of icons, providing flexibility in design.
+- **Ease of Use:** Integrating icons into React components is straightforward with `react-icons`.
+- **Consistency:** `react-icons` maintains a consistent API, making it easy to switch between different icon sets.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+1. **Node.js:** Ensure that Node.js is installed on your machine. You can download it from [here](https://nodejs.org/).
+
+### Installation
+
+```bash
+git clone https://github.com/Wael-Morjen/canva-web-app.git
+cd canva-web-app
+```
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Deployment (Build the Application)
+
+```bash
+npm run build
+```
+
+### Start the Application
+
+```bash
+npm start
+```
+
+### Run Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+``` 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Acknowledgments
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- [React Icons](https://react-icons.github.io/react-icons/): Used for providing a variety of icons in the application.
+- [Next.js](https://nextjs.org/): Chosen for building a fast, scalable, and SEO-friendly React application with server-side rendering.
+- [Tailwind CSS](https://tailwindcss.com/): Utilized for a utility-first CSS approach to styling components.
+- [Jest](https://jestjs.io/): Employed for testing the application and ensuring code quality.
+- [ESLint](https://eslint.org/): Used for linting the code and maintaining a consistent coding style.
+- [GitHub](https://github.com/): Hosts the project and provides version control.
 
-## Learn More
+## Authors
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Wael Morjen** - [Your GitHub Profile](https://github.com/Wael-Morjen)
