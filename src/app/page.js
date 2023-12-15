@@ -1,6 +1,6 @@
 'use client'
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { FaCog } from 'react-icons/fa';
 
 import Canvas from '../components/Canvas';
 import Tools from '../components/Tools';
@@ -8,6 +8,28 @@ import Tools from '../components/Tools';
 const Home = () => {
   const [currentTool, setCurrentTool] = useState('pencil');
   const [isDrawing, setIsDrawing] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isToolsOpen, setIsToolsOpen] = useState(false);
+
+  useEffect(() => {
+    // Check if the screen width is less than or equal to a certain breakpoint (e.g., 640px for mobile)
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 640);
+    };
+
+    // Initial check on component mount
+    handleResize();
+
+    // Listen for window resize events
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on component unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const toggleTools = () => {
+    setIsToolsOpen(!isToolsOpen);
+  };
 
   const selectPencil = () => {
     setCurrentTool('pencil');
@@ -50,7 +72,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+<div className="flex flex-col items-center justify-center h-screen relative">
       <Canvas
         currentTool={currentTool}
         addImage={addImage}
@@ -58,7 +80,25 @@ const Home = () => {
         setIsDrawing={setIsDrawing}
         resetCanvas={resetCanvas}
       />
-      {!isDrawing && (
+      {isMobile && !isDrawing && (
+        <>
+          <button onClick={toggleTools} className="fixed top-4 right-4 p-3 rounded-full bg-white shadow-md transition duration-300 hover:bg-gray-200">
+            <FaCog size={24} />
+          </button>
+          {isToolsOpen && (
+            <Tools
+              selectPencil={selectPencil}
+              selectEraser={selectEraser}
+              selectColor={selectColor}
+              saveDrawing={saveDrawing}
+              addImage={addImage}
+              isDrawing={isDrawing}
+              setIsToolsOpen={setIsToolsOpen} // Pass the setIsToolsOpen function
+            />
+          )}
+        </>
+      )}
+      {!isDrawing && !isMobile && (
         <Tools
           selectPencil={selectPencil}
           selectEraser={selectEraser}

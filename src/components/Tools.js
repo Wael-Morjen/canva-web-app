@@ -1,7 +1,7 @@
 import { FaPencilAlt, FaEraser, FaSave, FaCamera, FaFile } from 'react-icons/fa';
 import { useState, useRef } from 'react';
 
-const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage, isDrawing }) => {
+const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage, isDrawing, setIsToolsOpen }) => {
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const inputRef = useRef(null);
 
@@ -61,17 +61,38 @@ const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage,
     return tooltips[tool.toLowerCase()] || '';
   };
 
+  // A reusable button with transitions
+  const ToolButton = ({ onClick, icon, tooltip, closeTools }) => {
+    const handleClick = () => {
+      onClick(); // Execute the tool action
+      closeTools(); // Close the Tools component
+    };
+  
+    return (
+      <button
+        onClick={handleClick}
+        className="p-3 rounded-full hover:bg-gray-200 relative transition duration-300 flex flex-col items-center"
+      >
+        <div className="flex items-center flex-col">
+          {icon}
+          <span className="tooltip">{tooltip}</span>
+        </div>
+      </button>
+    );
+  };
+
   return (
     <div className={`fixed top-4 left-1/2 transform -translate-x-1/2 sm:flex sm:justify-center sm:items-center ${isDrawing ? 'hidden' : ''}`}>
       <div className="bg-white p-3 rounded-lg border border-gray-300 flex items-center flex-wrap gap-4">
-        <ToolButton onClick={selectPencil} icon={<FaPencilAlt size={24} />} tooltip={getTooltipText('pencil')} />
-        <ToolButton onClick={selectEraser} icon={<FaEraser size={24} />} tooltip={getTooltipText('eraser')} />
-        <ToolButton onClick={saveDrawing} icon={<FaSave size={24} />} tooltip={getTooltipText('save')} />
+        {/* Pass setIsToolsOpen to ToolButton */}
+        <ToolButton onClick={selectPencil} icon={<FaPencilAlt size={24} />} tooltip={getTooltipText('pencil')} closeTools={() => setIsToolsOpen(false)} />
+        <ToolButton onClick={selectEraser} icon={<FaEraser size={24} />} tooltip={getTooltipText('eraser')} closeTools={() => setIsToolsOpen(false)} />
+        <ToolButton onClick={saveDrawing} icon={<FaSave size={24} />} tooltip={getTooltipText('save')} closeTools={() => setIsToolsOpen(false)} />
 
         {/* Camera button will only be visible on small screens (mobile devices) */}
         <button
           onClick={openCamera}
-          className={`p-3 rounded-full hover:bg-gray-200 relative transition duration-300 sm:hidden flex flex-col items-center ${isCameraOpen ? 'text-blue-500' : ''}`}
+          className={`p-3 rounded-full hover:bg-gray-200 relative transition duration-300 sm:hidden flex flex-col ${isCameraOpen ? 'text-blue-500' : ''}`}
         >
           <div className="flex items-center flex-col">
             <FaCamera size={24} />
@@ -114,19 +135,5 @@ const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage,
   );
 };
 
-// A reusable button with transitions
-const ToolButton = ({ onClick, icon, tooltip }) => {
-  return (
-    <button
-      onClick={onClick}
-      className="p-3 rounded-full hover:bg-gray-200 relative transition duration-300 flex flex-col items-center"
-    >
-      <div className="flex items-center flex-col">
-        {icon}
-        <span className="tooltip">{tooltip}</span>
-      </div>
-    </button>
-  );
-};
 
 export default Tools;
