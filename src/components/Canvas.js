@@ -1,82 +1,68 @@
-'use client';   
+    import { useRef, useEffect } from 'react';
+    import { FaTrash } from 'react-icons/fa';
 
-import { useRef, useEffect } from 'react';
+    const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
+        const canvasRef = useRef(null);
+        const contextRef = useRef(null);
 
-const Canvas = ({ currentTool, addImage }) => {
-    const canvasRef = useRef(null);
-    const contextRef = useRef(null);
-    const isDrawing = useRef(false);
-    
-    // useEffect hook to set up the canvas and its context when the component mounts (full screen in our case)
-    useEffect(() => {
-        const canvas = canvasRef.current;
-      
-        // Set the width and height of the canvas to match the window dimensions
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        useEffect(() => {
+            const canvas = canvasRef.current;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const context = canvas.getContext('2d');
+            context.lineCap = 'round';
+            context.lineWidth = 5;
 
-        const context = canvas.getContext('2d');
-      
-        // Set the line cap style to 'round' and the line width to 5 pixels
-        context.lineCap = 'round';
-        context.lineWidth = 5;
-      
-        // Save the context reference for future use
-        contextRef.current = context;
-    }, []);
+            contextRef.current = context;
+        }, []);
 
+        const startDrawing = ({ nativeEvent }) => {
+            const { offsetX, offsetY } = nativeEvent;
+            contextRef.current.beginPath();
+            contextRef.current.moveTo(offsetX, offsetY);
+            setIsDrawing(true);
+        };
 
-    // Function to handle the start of drawing
-    const startDrawing = ({ nativeEvent }) => {
-        const { offsetX, offsetY } = nativeEvent;
+        const drawWithColor = ({ nativeEvent }) => {
+            if (!isDrawing) return;
+            const { offsetX, offsetY } = nativeEvent;
 
-        // Begin a new path and move to the starting point
-        contextRef.current.beginPath();
-        contextRef.current.moveTo(offsetX, offsetY);
+            if (currentTool === 'eraser') {
+            contextRef.current.strokeStyle = '#ffffff'; // White color for eraser
+            } else {
+            contextRef.current.strokeStyle = currentTool;
+            }
 
-        isDrawing.current = true;
-    }; 
-    
-    
-    // Function to handle drawing with the selected color or eraser
-    const drawWithColor = ({ nativeEvent }) => {
-        // If not currently drawing, exit the function
-        if (!isDrawing.current) return;
+            contextRef.current.lineTo(offsetX, offsetY);
+            contextRef.current.stroke();
+        };
 
-        // Extract the X and Y coordinates of the current drawing point
-        const { offsetX, offsetY } = nativeEvent;
+        const endDrawing = () => {
+            contextRef.current.closePath();
+            setIsDrawing(false);
+        };
 
-        // Set the stroke style based on the current tool (color or eraser in our case)
-        if (currentTool === 'eraser') {
-          contextRef.current.strokeStyle = '#ffffff'; // White color for eraser
-        } else {
-          contextRef.current.strokeStyle = currentTool;
-        }
-
-        contextRef.current.lineTo(offsetX, offsetY);
-        contextRef.current.stroke();
+        return (
+            <div className="relative w-full h-full">
+            <canvas
+                id="drawing-canvas"
+                ref={canvasRef}
+                onMouseDown={startDrawing}
+                onMouseMove={drawWithColor}
+                onMouseUp={endDrawing}
+                onMouseOut={endDrawing}
+                className="w-full h-full"
+            />
+            {!isDrawing && (
+                <button
+                onClick={resetCanvas}
+                className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-3 rounded-full bg-white shadow-md transition duration-300 hover:bg-gray-200"
+                >
+                <FaTrash size={24} />
+                </button>
+            )}
+            </div>
+        );
     };
 
-
-    // Function to handle the end of drawing
-    const endDrawing = () => {
-        // Close the current path
-        contextRef.current.closePath();
-
-        // Set isDrawing to false
-        isDrawing.current = false;
-    };
-  
-    return (
-        <canvas
-        id="drawing-canvas"
-        ref={canvasRef}
-        onMouseDown={startDrawing}
-        onMouseMove={drawWithColor}
-        onMouseUp={endDrawing}
-        onMouseOut={endDrawing}
-      />
-    );
-}
-
-export default Canvas;
+    export default Canvas;
