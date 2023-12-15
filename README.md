@@ -79,4 +79,4 @@ Visit http://localhost:3000 in your browser.
 
 ## Authors
 
-- **Wael Morjen** - [Your GitHub Profile](https://github.com/Wael-Morjen)
+- **Wael Morjen** - [Profile](https://github.com/Wael-Morjen)
