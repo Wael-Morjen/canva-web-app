@@ -81,6 +81,7 @@ Visit [canva web app](https://canva-web-app.vercel.app/)
 ## Acknowledgments
 
 - [React Icons](https://react-icons.github.io/react-icons/): Used for providing a variety of icons in the application.
+- [React Webcam](https://www.npmjs.com/package/react-webcam): Integrated to enable webcam functionality, allowing users to take snapshots.
 - [Next.js](https://nextjs.org/): Chosen for building a fast, scalable, and SEO-friendly React application with server-side rendering.
 - [Tailwind CSS](https://tailwindcss.com/): Utilized for a utility-first CSS approach to styling components.
 - [Jest](https://jestjs.io/): Employed for testing the application and ensuring code quality.
