@@ -2,13 +2,13 @@
 
 ## Overview
 
-Canva web app is a responsive drawing application built with Next.js, offering server-side rendering, automatic code splitting, and a powerful development environment. The application allows users to draw, select various tools, import images, and save their creations.
+Canva web app is a responsive drawing application built with Next.js, offering server-side rendering, automatic code splitting, and a powerful development environment. The application allows users to draw, select various tools, take picture with their device's camera, import images, and save their creations.
 
 ### Key Features
 
 - **Responsive Drawing:** Enjoy a smooth drawing experience on various devices.
 - **Tool Selection:** Choose from a set of drawing tools, including pencil, eraser, and more.
-- **Image Import:** Easily import images from your device or take a snapshot using the camera.
+- **Image Import:** Easily import images from your device or take a snapshot using the camera(mobile devices only).
 - **Save Your Artwork:** Save your creations and share them with others.
 
 ## Development Choices
@@ -89,4 +89,4 @@ Visit [canva web app](https://vercel.com/wael-morjen/canva-web-app)
 
 ## Author
 
-- **Wael Morjen** - [Profile](https://github.com/Wael-Morjen)
+- **Wael Morjen** - [GitHub Profile](https://github.com/Wael-Morjen)
