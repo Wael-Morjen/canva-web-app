@@ -1,38 +1,24 @@
+import React, { useState, useRef } from 'react';
 import { FaPencilAlt, FaEraser, FaSave, FaCamera, FaFile } from 'react-icons/fa';
-import { useState, useRef } from 'react';
+import Webcam from 'react-webcam';
 
 const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage, isDrawing, setIsToolsOpen }) => {
   const [isCameraOpen, setIsCameraOpen] = useState(false);
-  const inputRef = useRef(null);
+  const webcamRef = useRef(null);
+  const inputRef = useRef(null); // Add this line
 
-  const openCamera = async () => {
-    try {
-      const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
+  const openCamera = () => {
+    setIsCameraOpen(true);
+  };
 
-      const video = document.createElement('video');
-      document.body.appendChild(video);
-      video.srcObject = mediaStream;
-      video.play();
+  const closeCamera = () => {
+    setIsCameraOpen(false);
+  };
 
-      video.addEventListener('loadedmetadata', () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-
-        const context = canvas.getContext('2d');
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-        const imageData = canvas.toDataURL('image/png');
-        addImage(imageData);
-
-        mediaStream.getTracks().forEach((track) => track.stop());
-        document.body.removeChild(video);
-        setIsCameraOpen(false);
-      });
-    } catch (error) {
-      console.error('Error accessing camera:', error);
-      setIsCameraOpen(false);
-    }
+  const captureImage = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    addImage(imageSrc);
+    closeCamera();
   };
 
   const handleImageUpload = (event) => {
@@ -61,13 +47,12 @@ const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage,
     return tooltips[tool.toLowerCase()] || '';
   };
 
-  // A reusable button with transitions
   const ToolButton = ({ onClick, icon, tooltip, closeTools }) => {
     const handleClick = () => {
-      onClick(); // Execute the tool action
-      closeTools(); // Close the Tools component
+      onClick();
+      closeTools();
     };
-  
+
     return (
       <button
         onClick={handleClick}
@@ -84,21 +69,35 @@ const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage,
   return (
     <div className={`fixed top-4 left-1/2 transform -translate-x-1/2 sm:flex sm:justify-center sm:items-center ${isDrawing ? 'hidden' : ''}`}>
       <div className="bg-white p-3 rounded-lg border border-gray-300 flex items-center flex-wrap gap-4">
-        {/* Pass setIsToolsOpen to ToolButton */}
         <ToolButton onClick={selectPencil} icon={<FaPencilAlt size={24} />} tooltip={getTooltipText('pencil')} closeTools={() => setIsToolsOpen(false)} />
         <ToolButton onClick={selectEraser} icon={<FaEraser size={24} />} tooltip={getTooltipText('eraser')} closeTools={() => setIsToolsOpen(false)} />
         <ToolButton onClick={saveDrawing} icon={<FaSave size={24} />} tooltip={getTooltipText('save')} closeTools={() => setIsToolsOpen(false)} />
 
-        {/* Camera button will only be visible on small screens (mobile devices) */}
-        <button
-          onClick={openCamera}
-          className={`p-3 rounded-full hover:bg-gray-200 relative transition duration-300 sm:hidden flex flex-col ${isCameraOpen ? 'text-blue-500' : ''}`}
-        >
-          <div className="flex items-center flex-col">
-            <FaCamera size={24} />
-            <span className="tooltip">{getTooltipText('camera')}</span>
+        {isCameraOpen && (
+          <div className="flex flex-col items-center">
+            <Webcam
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/png"
+              className="mb-2"
+            />
+            <button onClick={captureImage} className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+              Capture Image
+            </button>
           </div>
-        </button>
+        )}
+
+        {!isCameraOpen && (
+          <button
+            onClick={openCamera}
+            className={`p-3 rounded-full hover:bg-gray-200 relative transition duration-300 sm:hidden flex flex-col ${isCameraOpen ? 'text-blue-500' : ''}`}
+          >
+            <div className="flex items-center flex-col">
+              <FaCamera size={24} />
+              <span className="tooltip">{getTooltipText('camera')}</span>
+            </div>
+          </button>
+        )}
 
         <button
           className="cursor-pointer p-3 rounded-full hover:bg-gray-200 relative transition duration-300 flex flex-col items-center"
@@ -134,6 +133,5 @@ const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage,
     </div>
   );
 };
-
 
 export default Tools;
