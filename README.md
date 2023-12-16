@@ -76,7 +76,7 @@ Visit http://localhost:3000 in your browser.
 
 ### Application already in production on Vercel
 
-Visit [canva web app](https://vercel.com/wael-morjen/canva-web-app)
+Visit [canva web app](https://canva-web-app.vercel.app/)
 
 ## Acknowledgments
 
