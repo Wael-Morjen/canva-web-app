@@ -81,7 +81,7 @@ const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage,
               screenshotFormat="image/png"
               className="mb-2"
             />
-            <button onClick={captureImage} className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            <button onClick={captureImage} className="p-2 bg-blue-500 text-white hover:bg-blue-600 rounded-md">
               Capture Image
             </button>
           </div>
