@@ -21,13 +21,19 @@ I chose Next.js for several reasons:
 - **Automatic Code Splitting:** Next.js enables automatic code splitting, enhancing page load times.
 - **React Support:** Next.js seamlessly integrates with React, allowing us to leverage the power of React components.
 
-### Library: react-icons
+### Libraries
+
+#### `react-icons`
 
 I opted for the `react-icons` library for the following reasons:
 
 - **Extensive Icon Set:** `react-icons` offers a comprehensive set of icons, providing flexibility in design.
 - **Ease of Use:** Integrating icons into React components is straightforward with `react-icons`.
 - **Consistency:** `react-icons` maintains a consistent API, making it easy to switch between different icon sets.
+
+#### `react-webcam`
+
+The `react-webcam` library is used to integrate webcam functionality into the application, allowing users to take snapshots. It enhances the drawing experience on mobile devices.
 
 ## Getting Started
 
