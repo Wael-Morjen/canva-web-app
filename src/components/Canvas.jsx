@@ -1,10 +1,14 @@
 import { useRef, useEffect } from 'react';
+
 import { FaTrash } from 'react-icons/fa';
 
+
 const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
+  // Refs for canvas and context
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
 
+  // Set up the canvas and context on component mount
   useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = window.innerWidth;
@@ -16,6 +20,7 @@ const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
     contextRef.current = context;
   }, []);
 
+  // Function to start drawing
   const startDrawing = ({ nativeEvent }) => {
     const { clientX, clientY } = nativeEvent.touches ? nativeEvent.touches[0] : nativeEvent;
     contextRef.current.beginPath();
@@ -23,10 +28,12 @@ const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
     setIsDrawing(true);
   };
 
+  // Function to draw with the selected color
   const drawWithColor = ({ nativeEvent }) => {
     if (!isDrawing) return;
     const { clientX, clientY } = nativeEvent.touches ? nativeEvent.touches[0] : nativeEvent;
 
+    // Set color based on the current tool
     if (currentTool === 'eraser') {
       contextRef.current.strokeStyle = '#ffffff'; // White color for eraser
     } else {
@@ -37,13 +44,16 @@ const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
     contextRef.current.stroke();
   };
 
+  // Function to end drawing
   const endDrawing = () => {
     contextRef.current.closePath();
     setIsDrawing(false);
   };
 
+  // Return the JSX structure for the Canvas component
   return (
     <div className="relative w-full h-full">
+      {/* Canvas for drawing */}
       <canvas
         id="drawing-canvas"
         ref={canvasRef}
@@ -56,10 +66,11 @@ const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
         onTouchEnd={endDrawing}
         className="w-full h-full"
       />
+      {/* Trash button for clearing the canvas when not drawing */}
       {!isDrawing && (
         <button
           onClick={resetCanvas}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 p-3 rounded-full bg-white shadow-md transition duration-300 hover:bg-gray-200"
+          className="absolute bottom-6 left-1/2 transform -translate-x-1/2 p-3 rounded-full bg-white shadow-md transition duration-300 hover:bg-gray-200"
         >
           <FaTrash size={24} />
         </button>
