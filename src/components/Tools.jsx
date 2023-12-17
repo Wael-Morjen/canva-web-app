@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { FaPencilAlt, FaEraser, FaSave, FaCamera, FaFile } from 'react-icons/fa';
 import Webcam from 'react-webcam';
 
-const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage, isDrawing, setIsToolsOpen }) => {
+const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage, isDrawing, setIsToolsOpen, selectedColor }) => {
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const webcamRef = useRef(null);
   const inputRef = useRef(null); // Add this line
@@ -124,7 +124,12 @@ const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage,
             <button
               key={color}
               onClick={() => selectColor(color)}
-              style={{ backgroundColor: color }}
+              style={{
+                backgroundColor: color,
+                border: `1px solid ${color === selectedColor ? '#000' : 'gray'}`,
+                borderWidth: color === selectedColor ? '2px' : '1px',
+                boxShadow: color === selectedColor ? '0 0 6px rgba(0, 0, 0, 0.5)' : 'none'
+              }}
               className="w-8 h-8 mx-1 border border-gray-600 rounded-full hover:bg-gray-200 transition duration-300"
             />
           ))}
