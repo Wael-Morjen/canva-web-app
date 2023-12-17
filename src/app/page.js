@@ -111,6 +111,8 @@ const Home = () => {
           saveDrawing={saveDrawing}
           addImage={addImage}
           isDrawing={isDrawing}
+          selectedColor={currentTool}
+          setIsToolsOpen={setIsToolsOpen} // Pass the setIsToolsOpen function
         />
       )}
     </div>
