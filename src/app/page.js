@@ -98,7 +98,8 @@ const Home = () => {
               saveDrawing={saveDrawing}
               addImage={addImage}
               isDrawing={isDrawing}
-              setIsToolsOpen={setIsToolsOpen} // Pass the setIsToolsOpen function
+              selectedColor={currentTool}
+              setIsToolsOpen={setIsToolsOpen}
             />
           )}
         </>
@@ -112,7 +113,7 @@ const Home = () => {
           addImage={addImage}
           isDrawing={isDrawing}
           selectedColor={currentTool}
-          setIsToolsOpen={setIsToolsOpen} // Pass the setIsToolsOpen function
+          setIsToolsOpen={setIsToolsOpen}
         />
       )}
     </div>
