@@ -1,18 +1,22 @@
-'use client'
+'use client';
+
 import { useState, useEffect } from 'react';
+
 import { FaCog } from 'react-icons/fa';
 
 import Canvas from '../components/Canvas';
 import Tools from '../components/Tools';
 
+
 const Home = () => {
+  // State variables
   const [currentTool, setCurrentTool] = useState('pencil');
   const [isDrawing, setIsDrawing] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
 
+  // useEffect to handle screen width changes and set isMobile accordingly
   useEffect(() => {
-    // Check if the screen width is less than or equal to a certain breakpoint (e.g., 640px for mobile)
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 640);
     };
@@ -27,8 +31,8 @@ const Home = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Function to toggle the visibility of tools
   const toggleTools = () => {
-    // Close the tools only if it's open on mobile devices
     if (isToolsOpen && isMobile) {
       setIsToolsOpen(false);
     } else {
@@ -36,6 +40,7 @@ const Home = () => {
     }
   };
 
+  // Functions to set the current tool (pencil, eraser, color)
   const selectPencil = () => {
     setCurrentTool('pencil');
     // Set the color to black explicitly when pencil is selected
@@ -50,6 +55,7 @@ const Home = () => {
     setCurrentTool(color);
   };
 
+  // Function to save the drawing
   const saveDrawing = () => {
     const canvas = document.getElementById('drawing-canvas');
     const dataUrl = canvas.toDataURL('image/png');
@@ -59,6 +65,7 @@ const Home = () => {
     a.click();
   };
 
+  // Function to add an image to the canvas
   const addImage = (imageData) => {
     const canvas = document.getElementById('drawing-canvas');
     const context = canvas.getContext('2d');
@@ -69,6 +76,7 @@ const Home = () => {
     };
   };
 
+  // Function to reset the canvas
   const resetCanvas = () => {
     const canvas = document.getElementById('drawing-canvas');
     const context = canvas.getContext('2d');
@@ -76,8 +84,10 @@ const Home = () => {
     context.lineWidth = 5;
   };
 
+  // JSX structure for the Home component
   return (
-<div className="flex flex-col items-center justify-center h-screen relative">
+    <div className="flex flex-col items-center justify-center h-screen relative">
+      {/* Canvas component */}
       <Canvas
         currentTool={currentTool}
         addImage={addImage}
@@ -85,6 +95,7 @@ const Home = () => {
         setIsDrawing={setIsDrawing}
         resetCanvas={resetCanvas}
       />
+      {/* Tools section for mobile devices */}
       {isMobile && !isDrawing && (
         <>
           <button onClick={toggleTools} className="fixed top-4 right-4 p-3 rounded-full bg-white shadow-md transition duration-300 hover:bg-gray-200">
@@ -104,6 +115,7 @@ const Home = () => {
           )}
         </>
       )}
+      {/* Tools section for non-mobile devices */}
       {!isDrawing && !isMobile && (
         <Tools
           selectPencil={selectPencil}
