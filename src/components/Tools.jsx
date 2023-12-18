@@ -67,7 +67,7 @@ const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage,
     return (
       <button
         onClick={handleClick}
-        className="p-3 rounded-full hover:bg-gray-200 relative transition duration-300 flex flex-col items-center"
+        className="p-3 rounded-full hover:bg-gray-200 hover:text-indigo-500 relative transition duration-300 flex flex-col items-center"
       >
         <div className="flex items-center flex-col">
           {icon}
@@ -116,7 +116,7 @@ const Tools = ({ selectPencil, selectEraser, selectColor, saveDrawing, addImage,
 
         {/* Button to trigger file input for image upload */}
         <button
-          className="cursor-pointer p-3 rounded-full hover:bg-gray-200 relative transition duration-300 flex flex-col items-center"
+          className="cursor-pointer p-3 rounded-full hover:bg-gray-200 hover:text-indigo-500 relative transition duration-300 flex flex-col items-center"
           onClick={() => inputRef.current.click()}
         >
           <div className="flex items-center flex-col">
