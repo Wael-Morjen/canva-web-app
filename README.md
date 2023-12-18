@@ -90,6 +90,7 @@ Visit [canva web app](https://canva-web-app.vercel.app/)
 - [Tailwind CSS](https://tailwindcss.com/): Utilized for a utility-first CSS approach to styling components.
 - [ESLint](https://eslint.org/): Used for linting the code and maintaining a consistent coding style.
 - [GitHub](https://github.com/): Hosts the project and provides version control.
+- [Vercel](https://vercel.com/): Used for deploying and hosting the application in production.
 
 ## Author
 
