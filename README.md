@@ -4,6 +4,10 @@
 
 Canva web app is a responsive drawing application built with Next.js, offering server-side rendering, automatic code splitting, and a powerful development environment. The application allows users to draw, select various tools, take picture with their device's camera, import images, and save their creations.
 
+### Code Organization and Comments
+
+The source code is thoroughly documented with comments to provide insights into the functionality, purpose, and usage of various components and functions. Comments are strategically placed to explain complex logic, configurations, and implementation details.
+
 ### Key Features
 
 - **Responsive Drawing:** Enjoy a smooth drawing experience on various devices.
@@ -84,7 +88,6 @@ Visit [canva web app](https://canva-web-app.vercel.app/)
 - [React Webcam](https://www.npmjs.com/package/react-webcam): Integrated to enable webcam functionality, allowing users to take snapshots.
 - [Next.js](https://nextjs.org/): Chosen for building a fast, scalable, and SEO-friendly React application with server-side rendering.
 - [Tailwind CSS](https://tailwindcss.com/): Utilized for a utility-first CSS approach to styling components.
-- [Jest](https://jestjs.io/): Employed for testing the application and ensuring code quality.
 - [ESLint](https://eslint.org/): Used for linting the code and maintaining a consistent coding style.
 - [GitHub](https://github.com/): Hosts the project and provides version control.
 
