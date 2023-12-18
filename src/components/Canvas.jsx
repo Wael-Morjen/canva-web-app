@@ -70,7 +70,7 @@ const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
       {!isDrawing && (
         <button
           onClick={resetCanvas}
-          className="absolute bottom-6 left-1/2 transform -translate-x-1/2 p-3 rounded-full bg-white shadow-md transition duration-300 hover:bg-gray-200"
+          className="absolute bottom-6 left-1/2 transform -translate-x-1/2 p-3 rounded-full bg-white shadow-md transition duration-300 hover:bg-gray-200 hover:text-red-500"
         >
           <FaTrash size={24} />
         </button>
