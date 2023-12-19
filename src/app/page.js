@@ -1,13 +1,11 @@
+// Import necessary dependencies
 'use client';
-
 import { useState, useEffect } from 'react';
-
 import { FaCog } from 'react-icons/fa';
-
 import Canvas from '../components/Canvas';
 import Tools from '../components/Tools';
 
-
+// Home component definition
 const Home = () => {
   // State variables
   const [currentTool, setCurrentTool] = useState('pencil');
@@ -132,4 +130,5 @@ const Home = () => {
   );
 };
 
+// Export the Home component
 export default Home;
