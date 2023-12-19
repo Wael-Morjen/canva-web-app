@@ -29,11 +29,9 @@ const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
   };
 
   // Function to draw with the selected color
-  const drawWithColor = (event) => {
-    event.preventDefault(); // Prevent the default touch move behavior (scrolling)
-    
+  const drawWithColor = ({ nativeEvent }) => {
     if (!isDrawing) return;
-    const { clientX, clientY } = event.touches ? event.touches[0] : event;
+    const { clientX, clientY } = nativeEvent.touches ? nativeEvent.touches[0] : nativeEvent;
 
     // Set color based on the current tool
     if (currentTool === 'eraser') {
@@ -45,7 +43,6 @@ const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
     contextRef.current.lineTo(clientX, clientY);
     contextRef.current.stroke();
   };
-
 
   // Function to end drawing
   const endDrawing = () => {
