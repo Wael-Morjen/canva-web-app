@@ -1,7 +1,5 @@
 import { useRef, useEffect } from 'react';
-
 import { FaTrash } from 'react-icons/fa';
-
 
 const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
   // Refs for canvas and context
@@ -11,43 +9,33 @@ const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
   // Set up the canvas and context on component mount
   useEffect(() => {
     const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+
+    // Set initial dimensions and properties
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    const context = canvas.getContext('2d');
     context.lineCap = 'round';
     context.lineWidth = 5;
 
     contextRef.current = context;
   }, []);
 
-  // Function to start drawing
-  const startDrawing = ({ nativeEvent }) => {
-    const { clientX, clientY } = nativeEvent.touches ? nativeEvent.touches[0] : nativeEvent;
-    contextRef.current.beginPath();
-    contextRef.current.moveTo(clientX, clientY);
-    setIsDrawing(true);
-  };
-
-  // Function to draw with the selected color
-  const drawWithColor = ({ nativeEvent }) => {
-    if (!isDrawing) return;
+  // Function to start, draw, and end drawing
+  const handleDrawing = ({ nativeEvent, type }) => {
     const { clientX, clientY } = nativeEvent.touches ? nativeEvent.touches[0] : nativeEvent;
 
-    // Set color based on the current tool
-    if (currentTool === 'eraser') {
-      contextRef.current.strokeStyle = '#ffffff';
-    } else {
-      contextRef.current.strokeStyle = currentTool;
+    if (type === 'start') {
+      contextRef.current.beginPath();
+      contextRef.current.moveTo(clientX, clientY);
+      setIsDrawing(true);
+    } else if (type === 'draw' && isDrawing) {
+      contextRef.current.strokeStyle = currentTool === 'eraser' ? '#ffffff' : currentTool;
+      contextRef.current.lineTo(clientX, clientY);
+      contextRef.current.stroke();
+    } else if (type === 'end') {
+      contextRef.current.closePath();
+      setIsDrawing(false);
     }
-
-    contextRef.current.lineTo(clientX, clientY);
-    contextRef.current.stroke();
-  };
-
-  // Function to end drawing
-  const endDrawing = () => {
-    contextRef.current.closePath();
-    setIsDrawing(false);
   };
 
   // Return the JSX structure for the Canvas component
@@ -57,13 +45,13 @@ const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
       <canvas
         id="drawing-canvas"
         ref={canvasRef}
-        onMouseDown={startDrawing}
-        onMouseMove={drawWithColor}
-        onMouseUp={endDrawing}
-        onMouseOut={endDrawing}
-        onTouchStart={startDrawing}
-        onTouchMove={drawWithColor}
-        onTouchEnd={endDrawing}
+        onMouseDown={(e) => handleDrawing({ nativeEvent: e, type: 'start' })}
+        onMouseMove={(e) => handleDrawing({ nativeEvent: e, type: 'draw' })}
+        onMouseUp={(e) => handleDrawing({ nativeEvent: e, type: 'end' })}
+        onMouseOut={(e) => handleDrawing({ nativeEvent: e, type: 'end' })}
+        onTouchStart={(e) => handleDrawing({ nativeEvent: e, type: 'start' })}
+        onTouchMove={(e) => handleDrawing({ nativeEvent: e, type: 'draw' })}
+        onTouchEnd={(e) => handleDrawing({ nativeEvent: e, type: 'end' })}
         className="w-full h-full"
       />
       {/* Trash button for clearing the canvas when not drawing */}
