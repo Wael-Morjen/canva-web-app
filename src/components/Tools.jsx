@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react';
+
 import { FaPencilAlt, FaEraser, FaSave, FaCamera, FaFile } from 'react-icons/fa';
+
 import Webcam from 'react-webcam';
 
 const Tools = ({
@@ -12,19 +14,25 @@ const Tools = ({
   setIsToolsOpen,
   selectedColor,
 }) => {
+  // State and ref initialization
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const webcamRef = useRef(null);
   const inputRef = useRef(null);
 
+  // Function to open the camera
   const openCamera = () => setIsCameraOpen(true);
+
+  // Function to close the camera
   const closeCamera = () => setIsCameraOpen(false);
 
+  // Function to capture an image from the webcam
   const captureImage = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     addImage(imageSrc);
     closeCamera();
   };
 
+  // Function to handle image upload
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
 
@@ -35,8 +43,10 @@ const Tools = ({
     }
   };
 
+  // Array of color options
   const colors = ['#000000', '#ffffff', '#ff0000', '#0000ff', '#ffff00'];
 
+  // Tooltips for each tool
   const tooltips = {
     pencil: 'Draw',
     eraser: 'Eraser',
@@ -45,8 +55,10 @@ const Tools = ({
     file: 'Import',
   };
 
+  // Function to get tooltip text for a given tool
   const getTooltipText = (tool) => tooltips[tool.toLowerCase()] || '';
 
+  // ToolButton component for each tool
   const ToolButton = ({ onClick, icon, tooltip }) => (
     <button
       onClick={() => {
@@ -62,13 +74,16 @@ const Tools = ({
     </button>
   );
 
+  // Return the JSX structure for the Tools component
   return (
     <div className={`fixed top-4 left-1/2 transform -translate-x-1/2 sm:flex sm:justify-center sm:items-center ${isDrawing ? 'hidden' : ''}`}>
       <div className="bg-white p-3 rounded-lg border border-gray-300 flex items-center flex-wrap gap-4">
+        {/* Tool buttons for pencil, eraser, and save */}
         <ToolButton onClick={selectPencil} icon={<FaPencilAlt size={24} />} tooltip={getTooltipText('pencil')} />
         <ToolButton onClick={selectEraser} icon={<FaEraser size={24} />} tooltip={getTooltipText('eraser')} />
         <ToolButton onClick={saveDrawing} icon={<FaSave size={24} />} tooltip={getTooltipText('save')} />
 
+        {/* Webcam capture button when the camera is open */}
         {isCameraOpen && (
           <div className="flex flex-col items-center">
             <Webcam audio={false} ref={webcamRef} screenshotFormat="image/png" className="mb-2" />
@@ -78,6 +93,7 @@ const Tools = ({
           </div>
         )}
 
+        {/* Button to open the camera */}
         {!isCameraOpen && (
           <button
             onClick={openCamera}
@@ -90,6 +106,7 @@ const Tools = ({
           </button>
         )}
 
+        {/* Button to trigger file input for image upload */}
         <button
           className="cursor-pointer p-3 rounded-full hover:bg-gray-200 hover:text-indigo-500 relative transition duration-300 flex flex-col items-center"
           onClick={() => inputRef.current.click()}
@@ -103,6 +120,7 @@ const Tools = ({
           </div>
         </button>
 
+        {/* Color selection buttons */}
         <div className="flex items-center ml-4">
           {colors.map((color) => (
             <button
