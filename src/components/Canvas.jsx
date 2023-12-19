@@ -29,13 +29,15 @@ const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
   };
 
   // Function to draw with the selected color
-  const drawWithColor = ({ nativeEvent }) => {
+  const drawWithColor = (event) => {
+    event.preventDefault(); // Prevent the default touch move behavior (scrolling)
+    
     if (!isDrawing) return;
-    const { clientX, clientY } = nativeEvent.touches ? nativeEvent.touches[0] : nativeEvent;
+    const { clientX, clientY } = event.touches ? event.touches[0] : event;
 
     // Set color based on the current tool
     if (currentTool === 'eraser') {
-      contextRef.current.strokeStyle = '#ffffff'; // White color for eraser
+      contextRef.current.strokeStyle = '#ffffff';
     } else {
       contextRef.current.strokeStyle = currentTool;
     }
@@ -43,6 +45,7 @@ const Canvas = ({ currentTool, isDrawing, setIsDrawing, resetCanvas }) => {
     contextRef.current.lineTo(clientX, clientY);
     contextRef.current.stroke();
   };
+
 
   // Function to end drawing
   const endDrawing = () => {
